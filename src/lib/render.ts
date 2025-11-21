@@ -3,27 +3,27 @@ import type { ComponentProps, Component, SvelteComponent } from 'svelte';
 import { render as renderServer } from 'svelte/server';
 
 export const render = async <
-  Comp extends SvelteComponent<any> | Component<any>,
-  Props extends ComponentProps<Comp> = ComponentProps<Comp>,
+	Comp extends SvelteComponent<any> | Component<any>,
+	Props extends ComponentProps<Comp> = ComponentProps<Comp>
 >(
-  component: Comp,
-  props?: Props,
+	component: Comp,
+	props?: Props
 ) => {
-  const rendered = renderServer(component as any, {
-    props,
-  });
+	const rendered = renderServer(component as any, {
+		props
+	});
 
-  const doctype =
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+	const doctype =
+		'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const html = `${doctype}${rendered.body}`;
+	const html = `${doctype}${rendered.body}`;
 
-  const text = renderAsPlainText(rendered.body);
+	const text = renderAsPlainText(rendered.body);
 
-  return {
-    html,
-    text,
-  };
+	return {
+		html,
+		text
+	};
 };
 
 const renderAsPlainText = (markup: string) => {

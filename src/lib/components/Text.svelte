@@ -5,14 +5,15 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLParagraphElement>, 'style'> {
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardShorthandProperties & StandardProperties;
+		class?: string | undefined;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
+	let { style = {}, class: className = undefined, children, ...rest }: Props = $props();
 
 	const styleDefault = {
 		fontSize: '14px',
@@ -22,6 +23,6 @@
 	};
 </script>
 
-<p style={styleToString(styleDefault)} {...$$restProps} class={className}>
-	<slot />
+<p style={styleToString(styleDefault)} {...rest} class={className}>
+	{@render children?.()}
 </p>

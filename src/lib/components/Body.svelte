@@ -5,16 +5,18 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLBodyElement>, 'style'> {
+	import type { Snippet } from 'svelte';
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardShorthandProperties & StandardProperties;
+		class?: string | undefined;
+		children?: Snippet;
+		[key: string]: any;
 	}
 
-	export let style = {};
-	let className: string | undefined = undefined;
-	export { className as class };
+	let { style = {}, class: className = undefined, children, ...rest }: Props = $props();
 </script>
 
-<body {...$$restProps} style={styleToString(style)} class={className} >
-	<slot />
+<body {...rest} style={styleToString({ ...style })} class={className}>
+	{@render children?.()}
 </body>

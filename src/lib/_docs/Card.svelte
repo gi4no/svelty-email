@@ -1,27 +1,30 @@
 <script lang="ts">
 	import clsx from 'clsx';
-	interface $$Props {
+
+	interface Props {
 		href?: string;
 		title: string;
 		description?: string;
+		icon?: import('svelte').Snippet;
 	}
-	export let href = '';
-	export let title = '';
-	export let description = '';
+
+	let { href = '', title = '', description = '', icon }: Props = $props();
 
 	const as = href ? 'a' : 'div';
 
-	$: arrowClass = clsx(
-		href &&
-			'text-brand transition-all duration-100 opacity-0 group-hover:opacity-100 translate group-hover:translate-x-0 -translate-x-3',
-		!href ? 'hidden' : 'inline-block'
+	let arrowClass = $derived(
+		clsx(
+			href &&
+				'text-red-500 transition-all duration-100 opacity-0 group-hover:opacity-100 translate group-hover:translate-x-0 -translate-x-3',
+			!href ? 'hidden' : 'inline-block'
+		)
 	);
 </script>
 
 <svelte:element this={as} class={clsx('card', href && 'hover:border-brand cursor-pointer')} {href}>
-	{#if $$slots['icon']}
-		<div class="h-6 w-6 text-brand">
-			<slot name="icon" />
+	{#if icon}
+		<div class="h-6 w-6 text-red-500 underline">
+			{@render icon?.()}
 		</div>
 	{/if}
 	<h2 class="heading">
@@ -54,7 +57,6 @@
 		padding-right: 1.5rem;
 		padding-top: 1.25rem;
 		padding-bottom: 1.25rem;
-		width: 100%;
 	}
 
 	.card:hover {
@@ -68,7 +70,7 @@
 		margin-top: 1rem;
 	}
 
-	.dark .card .heading {
+	:global(.dark) .card .heading {
 		color: #fff;
 	}
 </style>

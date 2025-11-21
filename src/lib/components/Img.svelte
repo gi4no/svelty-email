@@ -5,22 +5,26 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLImageElement>, 'style'> {
+
+	interface Props {
 		style?: StandardProperties & StandardLonghandProperties & StandardShorthandProperties;
 		alt: string;
 		src: string;
 		width: string;
 		height: string;
+		class?: string | undefined;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
-	export let alt = '';
-	export let src = '';
-	export let width = '0';
-	export let height = '0';
+	let {
+		style = {},
+		alt = '',
+		src = '',
+		width = '0',
+		height = '0',
+		class: className = undefined,
+		...rest
+	}: Props = $props();
 
 	const styleDefault = {
 		display: 'block',
@@ -31,4 +35,4 @@
 	};
 </script>
 
-<img {alt} {src} {width} {height} style={styleToString(styleDefault)} {...$$restProps} class={className}/>
+<img {alt} {src} {width} {height} style={styleToString(styleDefault)} {...rest} class={className} />

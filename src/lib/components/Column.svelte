@@ -5,15 +5,15 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLTableCellElement>, 'style'> {
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
 		class?: string | undefined;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
+	let { style = {}, className = undefined, children, ...rest }: Props = $props();
 
 	const styleDefault = {
 		display: 'inline-flex',
@@ -23,6 +23,6 @@
 	};
 </script>
 
-<td style={styleToString(styleDefault)} role="row" {...$$restProps} class={className}>
-	<slot />
+<td style={styleToString(styleDefault)} role="row" {...rest} class={className}>
+	{@render children?.()}
 </td>

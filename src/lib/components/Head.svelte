@@ -1,9 +1,14 @@
 <script lang="ts">
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends HTMLAttributes<HTMLHeadElement> {}
+	interface Props {
+		children?: import('svelte').Snippet;
+		[key: string]: any;
+	}
+
+	let { children, ...rest }: Props = $props();
 </script>
 
-<head {...$$restProps}>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<slot />
+<head {...rest}>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="x-apple-disable-message-reformatting" />
+	{@render children?.()}
 </head>

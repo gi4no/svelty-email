@@ -9,7 +9,13 @@ const config = {
 	extensions: ['.svelte', '.md'],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		paths: {
+			relative: false
+		},
+		alias: {
+			$img: './src/img'
+		}
 	}
 };
 

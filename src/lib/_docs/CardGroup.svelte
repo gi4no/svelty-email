@@ -1,9 +1,14 @@
 <script lang="ts">
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 	export const cols: 1 | 2 | 3 | 4 = 2;
 </script>
 
 <div class={'card-group'}>
-	<slot />
+	{@render children?.()}
 </div>
 
 <style>

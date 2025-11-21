@@ -5,22 +5,28 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { pxToPt, styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLAnchorElement>, 'style'> {
+
+	interface Props {
 		style?: StandardProperties & StandardLonghandProperties & StandardShorthandProperties;
 		href: string;
 		target?: string;
 		pX?: number;
 		pY?: number;
+		class?: string | undefined;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
 	}
 
-	export let href = '';
-	export let style = {};
-	let className: string | undefined = undefined;
-	export { className as class };
-	export let pX = 0;
-	export let pY = 0;
-	export let target = '_blank';
+	let {
+		style = {},
+		href = '',
+		target = '_blank',
+		pX = 0,
+		pY = 0,
+		class: className = undefined,
+		children,
+		...rest
+	}: Props = $props();
 
 	const y = pY * 2;
 	const textRaise = pxToPt(y.toString());
@@ -57,12 +63,18 @@
 	};
 </script>
 
-<a {...$$restProps} {href} {target} style={styleToString(buttonStyle({ ...style, pX, pY }))} class={className}>
+<a
+	{...rest}
+	{href}
+	{target}
+	style={styleToString(buttonStyle({ ...style, pX, pY }))}
+	class={className}
+>
 	<span>
 		{@html `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`}
 	</span>
 	<span style={styleToString(buttonTextStyle({ ...style, pX, pY }))}>
-		<slot />
+		{@render children?.()}
 	</span>
 	<span>
 		{@html `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`}

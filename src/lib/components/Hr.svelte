@@ -5,14 +5,14 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLHRElement>, 'style'> {
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
+		class?: string | undefined;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
+	let { style = {}, class: className = undefined, ...rest }: Props = $props();
 
 	const styleDefault = {
 		width: '100%',
@@ -22,4 +22,4 @@
 	};
 </script>
 
-<hr style={styleToString(styleDefault)} {...$$restProps} class={className}/>
+<hr style={styleToString(styleDefault)} {...rest} class={className} />

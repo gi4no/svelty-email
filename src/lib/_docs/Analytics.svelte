@@ -1,29 +1,29 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+	import { run } from 'svelte/legacy';
 
-  $: {
-    if (typeof gtag !== 'undefined') {
-      gtag('config', 'G-583B58BZRR', {
-        page_title: document.title,
-        page_path: $page.url.pathname,
-      })
-    }
-  }
+	import { page } from '$app/stores';
+
+	run(() => {
+		if (typeof gtag !== 'undefined') {
+			gtag('config', 'G-583B58BZRR', {
+				page_title: document.title,
+				page_path: $page.url.pathname
+			});
+		}
+	});
 </script>
 
 <svelte:head>
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-583B58BZRR">
-  </script>
-  <script>
-    window.dataLayer = window.dataLayer || []
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-583B58BZRR">
+	</script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments)
-    }
+		function gtag() {
+			dataLayer.push(arguments);
+		}
 
-    gtag('js', new Date())
-    gtag('config', 'G-583B58BZRR')
-  </script>
+		gtag('js', new Date());
+		gtag('config', 'G-583B58BZRR');
+	</script>
 </svelte:head>

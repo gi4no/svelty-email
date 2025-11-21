@@ -5,14 +5,15 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLTableElement>, 'style'> {
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
+		class?: string | undefined;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
+	let { style = {}, class: className = undefined, children, ...rest }: Props = $props();
 
 	const styleDefaultTable = {
 		width: '100%',
@@ -33,12 +34,12 @@
 	cellPadding={0}
 	cellSpacing={0}
 	role="presentation"
-	{...$$restProps}
+	{...rest}
 	class={className}
 >
 	<tbody>
 		<tr style={styleToString(styleDefaultTr)}>
-			<slot />
+			<td>{@render children?.()}</td>
 		</tr>
 	</tbody>
 </table>

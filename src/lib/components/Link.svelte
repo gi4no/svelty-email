@@ -5,18 +5,24 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLAnchorElement>, 'style'> {
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardShorthandProperties & StandardProperties;
 		target?: string;
 		href: string;
+		class?: string | undefined;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
-	export let target = '_blank';
-	export let href = '';
+	let {
+		style = {},
+		target = '_blank',
+		href = '',
+		class: className = undefined,
+		children,
+		...rest
+	}: Props = $props();
 
 	const styleDefault = {
 		color: '#067df7',
@@ -25,6 +31,6 @@
 	};
 </script>
 
-<a {...$$restProps} {href} {target} style={styleToString(styleDefault)} class={className}>
-	<slot />
+<a {...rest} {href} {target} style={styleToString(styleDefault)} class={className}>
+	{@render children?.()}
 </a>

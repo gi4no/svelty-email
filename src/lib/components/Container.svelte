@@ -5,16 +5,15 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface $$Props extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'class'> {
+	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
 		class?: string | undefined;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
+	let { style = {}, className = undefined, children, ...rest }: Props = $props();
 
 	const styles = { maxWidth: '37.5em', ...style };
 	const inlineStyle = styleToString(styles);
@@ -25,8 +24,8 @@
         <table role="presentation" width="100%" align="center" style="${inlineStyle}" class="${className}"><tr><td></td><td style="width:37.5em;">
       <![endif]-->`}
 </div>
-<div {...$$restProps} style={inlineStyle} class={className}>
-	<slot />
+<div {...rest} style={inlineStyle} class={className}>
+	{@render children?.()}
 </div>
 <div>
 	{@html `<!--[if mso | IE]>

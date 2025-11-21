@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
 	import { Button, Hr, Html, Text } from '$lib';
 
-	export let name = 'World';
+	interface Props {
+		name?: string;
+	}
+
+	let { name = 'World' }: Props = $props();
 </script>
 
 <Html lang="en">

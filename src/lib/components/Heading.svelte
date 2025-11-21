@@ -5,10 +5,12 @@
 		StandardShorthandProperties
 	} from 'csstype';
 	import { styleToString, withMargin } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-	interface $$Props extends Omit<HTMLAttributes<HTMLHeadingElement>, 'style'> {
+	import type { Snippet } from 'svelte';
+
+	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
 		as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+		className?: string;
 		m?: string;
 		mx?: string;
 		my?: string;
@@ -16,30 +18,41 @@
 		mr?: string;
 		mb?: string;
 		ml?: string;
+		children?: Snippet;
 	}
 
-	export let style: $$Props['style'] = {};
-	let className: string | undefined = undefined;
-	export { className as class };
-	export let as = 'h1';
+	let {
+		as = 'h1',
+		className,
+		m,
+		mx,
+		my,
+		mt,
+		mr,
+		mb,
+		ml,
+		style,
+		children,
+		...rest
+	}: Props = $props();
 </script>
 
 <svelte:element
 	this={as}
 	style={styleToString({
 		...withMargin({
-			m: $$props.m,
-			mx: $$props.mx,
-			my: $$props.my,
-			mt: $$props.mt,
-			mr: $$props.mr,
-			mb: $$props.mb,
-			ml: $$props.ml
+			m: m,
+			mx: mx,
+			my: my,
+			mt: mt,
+			mr: mr,
+			mb: mb,
+			ml: ml
 		}),
 		...style
 	})}
 	class={className}
-	{...$$restProps}
+	{...rest}
 >
-	<slot />
+	{@render children?.()}
 </svelte:element>
