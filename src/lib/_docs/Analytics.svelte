@@ -2,7 +2,6 @@
 	import { page } from '$app/state';
 
 	$effect(() => {
-		console.log('effect');
 		if (typeof gtag !== 'undefined') {
 			gtag('config', 'G-583B58BZRR', {
 				page_title: document.title,
