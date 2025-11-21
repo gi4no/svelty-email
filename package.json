@@ -136,8 +136,7 @@
 		"@tailwindcss/vite": "^4.1.17",
 		"tslib": "^2.4.1",
 		"typescript": "^5.5.0",
-		"@iconify/json": "^2.2.409",
-		"vite": "^5.4.4"
+		"@iconify/json": "^2.2.409"
 	},
 	"type": "module",
 	"dependencies": {
@@ -147,6 +146,7 @@
 		"@sveltejs/package": "^2.3.7",
 		"@sveltepress/theme-default": "6.0.4",
 		"unplugin-icons": "^22.5.0",
-		"@sveltepress/vite": "1.2.2"
+		"@sveltepress/vite": "1.2.2",
+		"vite": "^5.4.4"
 	}
 }
