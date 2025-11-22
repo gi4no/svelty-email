@@ -96,6 +96,10 @@
 			"types": "./dist/components/Text.svelte.d.ts",
 			"svelte": "./dist/components/Text.svelte"
 		},
+		"./components/Row.svelte": {
+			"types": "./dist/components/Row.svelte.d.ts",
+			"svelte": "./dist/components/Row.svelte"
+		},
 		"./render": {
 			"types": "./dist/render.d.ts",
 			"default": "./dist/render.js"
