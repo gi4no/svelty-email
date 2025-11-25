@@ -4,7 +4,9 @@
 		StandardProperties,
 		StandardShorthandProperties
 	} from 'csstype';
-	import { pxToPt, styleToString } from '$lib/utils';
+	import { pxToPt, styleToString, tailwindToInlineCss } from '$lib/utils';
+	import type { TailwindSetup } from '$lib/tailwind';
+	import { getContext } from 'svelte';
 
 	interface Props {
 		style?: StandardProperties & StandardLonghandProperties & StandardShorthandProperties;
@@ -61,14 +63,17 @@
 			msoTextRaise: pxToPt(paddingY.toString())
 		};
 	};
+
+	const tailwind = getContext<TailwindSetup>('tailwind');
+	const { extraClass, styleInline } = tailwindToInlineCss(tailwind, className || '') || {};
 </script>
 
 <a
 	{...rest}
 	{href}
 	{target}
-	style={styleToString(buttonStyle({ ...style, pX, pY }))}
-	class={className}
+	style={styleToString(buttonStyle({ ...style, pX, pY, ...styleInline }))}
+	class="{className} {extraClass}"
 >
 	<span>
 		{@html `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`}

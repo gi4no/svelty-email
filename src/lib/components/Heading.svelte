@@ -4,8 +4,9 @@
 		StandardProperties,
 		StandardShorthandProperties
 	} from 'csstype';
-	import { styleToString, withMargin } from '$lib/utils';
-	import type { Snippet } from 'svelte';
+	import { styleToString, tailwindToInlineCss, withMargin } from '$lib/utils';
+	import { getContext, type Snippet } from 'svelte';
+	import type { TailwindSetup } from '$lib/tailwind';
 
 	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
@@ -35,6 +36,9 @@
 		children,
 		...rest
 	}: Props = $props();
+
+	const tailwind = getContext<TailwindSetup>('tailwind');
+	const { extraClass, styleInline } = tailwindToInlineCss(tailwind, className || '') || {};
 </script>
 
 <svelte:element
@@ -49,9 +53,10 @@
 			mb: mb,
 			ml: ml
 		}),
-		...style
+		...style,
+		...styleInline
 	})}
-	class={className}
+	class="{className} {extraClass}"
 	{...rest}
 >
 	{@render children?.()}
