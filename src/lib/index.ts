@@ -13,6 +13,7 @@ import Section from './components/Section.svelte';
 import Text from './components/Text.svelte';
 import Row from './components/Row.svelte';
 import Tailwind from './components/Tailwind.svelte';
+import TailwindHead from './components/TailwindHead.svelte';
 
 import { render } from './render';
 
@@ -34,6 +35,7 @@ export {
 	Text,
 	Row,
 	Tailwind,
+	TailwindHead,
 	render,
 	styleToString
 };
