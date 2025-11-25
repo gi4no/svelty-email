@@ -4,7 +4,9 @@
 		StandardProperties,
 		StandardShorthandProperties
 	} from 'csstype';
-	import { styleToString } from '$lib/utils';
+	import { styleToString, tailwindToInlineCss } from '$lib/utils';
+	import type { TailwindSetup } from '$lib/tailwind';
+	import { getContext } from 'svelte';
 
 	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
@@ -15,9 +17,13 @@
 
 	let { style = {}, class: className = undefined, children, ...rest }: Props = $props();
 
+	const tailwind = getContext<TailwindSetup>('tailwind');
+	const { extraClass, styleInline } = tailwindToInlineCss(tailwind, className || '') || {};
+
 	const styleDefaultTable = {
 		width: '100%',
-		...style
+		...style,
+    ...styleInline
 	};
 
 	const styleDefaultTr = {
@@ -33,7 +39,7 @@
 	cellSpacing={0}
 	role="presentation"
 	{...rest}
-	class={className}
+	class="{className} {extraClass}"
 >
 	<tbody style={styleToString(styleDefaultTr)}>
 		<tr style={styleToString(styleDefaultTr)}>
