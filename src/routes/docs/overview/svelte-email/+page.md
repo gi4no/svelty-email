@@ -22,8 +22,6 @@ This is a set of standard components to help you build amazing emails without ha
 	import DashboardIcon from '~icons/ri/dashboard-line';
 	import CodeIcon from '~icons/ri/code-s-slash-line';
 	import TextIcon from '~icons/ri/input-method-line';
-
-  console.log(CodeIcon)
 </script>
 
 <CardGroup cols={2}>
