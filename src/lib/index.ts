@@ -12,6 +12,7 @@ import Preview from './components/Preview.svelte';
 import Section from './components/Section.svelte';
 import Text from './components/Text.svelte';
 import Row from './components/Row.svelte';
+import Tailwind from './components/Tailwind.svelte';
 
 import { render } from './render';
 
@@ -31,7 +32,8 @@ export {
 	Preview,
 	Section,
 	Text,
-  Row,
+	Row,
+	Tailwind,
 	render,
 	styleToString
 };

@@ -8,6 +8,12 @@ const config = {
 	preprocess: vitePreprocess(),
 	extensions: ['.svelte', '.md'],
 
+	compilerOptions: {
+		experimental: {
+			async: true
+		}
+	},
+
 	kit: {
 		adapter: adapter(),
 		paths: {

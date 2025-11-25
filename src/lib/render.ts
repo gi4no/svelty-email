@@ -9,14 +9,14 @@ export const render = async <
 	component: Comp,
 	props?: Props
 ) => {
-	const rendered = renderServer(component as any, {
+	const rendered = await renderServer(component as any, {
 		props
 	});
 
 	const doctype =
 		'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-	const html = `${doctype}${rendered.body}`;
+	const html = `${doctype}${rendered.body.replace('</head>', `${rendered.head}</head>`)}`;
 
 	const text = renderAsPlainText(rendered.body);
 

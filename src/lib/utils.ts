@@ -1,3 +1,6 @@
+import { headStyle } from './components/Tailwind.svelte';
+import { tailwindToCss, type TailwindSetup } from './tailwind';
+
 export const copyTextToClipboard = async (text: string) => {
 	try {
 		await navigator.clipboard.writeText(text);
@@ -61,4 +64,43 @@ export const unreachable = (
 	message = `Entered unreachable code. Received '${condition}'.`
 ): never => {
 	throw new TypeError(message);
+};
+
+const capitalize = function (str: string) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+const toCamelCase = (str: string) =>
+	str.split('-').reduce((acc, el, i) => {
+		if (i === 0) {
+			acc += el;
+		} else {
+			acc += capitalize(el);
+		}
+		return acc;
+	}, '');
+
+export const tailwindToInlineCss = (tailwind: TailwindSetup, className: string) => {
+	if (!tailwind && !className) {
+		return;
+	}
+	const {
+		styles: styleInline,
+		className: extraClass,
+		nonInlineStyles
+	} = tailwindToCss(tailwind, className);
+	// inlinleStyle = Object.entries(styles).reduce((acc, [k, v]) => {
+	// 	return `${acc}${k}:${v};`;
+	// }, '');
+
+	nonInlineStyles && headStyle.update((s) => [...s, nonInlineStyles]);
+
+	return {
+		extraClass,
+		styleInline: Object.fromEntries(
+			Object.entries(styleInline).map(([key, value]) => {
+				return [toCamelCase(key), value];
+			})
+		)
+	};
 };
