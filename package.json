@@ -1,6 +1,6 @@
 {
 	"name": "@gi4no/svelty-email",
-	"version": "0.1.13",
+	"version": "0.1.14",
 	"description": "Build emails with Svelte",
 	"author": {
 		"name": "Chris Joseph"

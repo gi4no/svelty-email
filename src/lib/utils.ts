@@ -86,7 +86,7 @@ export const tailwindToInlineCss = (tailwind: TailwindSetup, className: string) 
 	}
 	const {
 		styles: styleInline,
-		className: extraClass,
+		extraClass,
 		nonInlineStyles
 	} = tailwindToCss(tailwind, className);
 	// inlinleStyle = Object.entries(styles).reduce((acc, [k, v]) => {

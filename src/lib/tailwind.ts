@@ -93,6 +93,7 @@ export function sanitizeStyleSheet(styleSheet: StyleSheet) {
 
 export const tailwindToCss = (tailwindSetup: TailwindSetup, className: string) => {
 	let classesUsed: string[] = [];
+	let extraClass: string = '';
 
 	const classes = className?.split(/\s+/);
 	classesUsed = [...classesUsed, ...classes];
@@ -127,7 +128,7 @@ export const tailwindToCss = (tailwindSetup: TailwindSetup, className: string) =
 	}
 
 	if (residualClasses.length > 0) {
-		className = residualClasses
+		extraClass = residualClasses
 			.map((className) => {
 				if (nonInlinableRules.has(className)) {
 					return sanitizeClassName(className);
@@ -145,6 +146,6 @@ export const tailwindToCss = (tailwindSetup: TailwindSetup, className: string) =
 		nonInlinableRules,
 		nonInlineStyles: generate(nonInlineStyles),
 		inlinableRules,
-		className
+		extraClass
 	};
 };
