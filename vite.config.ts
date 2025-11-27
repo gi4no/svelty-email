@@ -1,7 +1,6 @@
 import { defaultTheme } from '@sveltepress/theme-default';
 import Icons from 'unplugin-icons/vite';
 import { sveltepress } from '@sveltepress/vite';
-import tailwindcss from '@tailwindcss/vite';
 
 /** @type {import('vite').UserConfig} */
 const config = {

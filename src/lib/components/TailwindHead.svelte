@@ -4,6 +4,6 @@
 
 <svelte:head>
 	{#if $headStyle.length > 0}
-		{@html `<style>${$headStyle.reduce((acc, el) => (acc += el))}</style>`}
+		{@html `<${''}style>${$headStyle.reduce((acc, el) => (acc += el))}</${''}style>`}
 	{/if}
 </svelte:head>

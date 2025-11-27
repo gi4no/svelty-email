@@ -1,9 +1,5 @@
 import { generate, List, parse, type CssNode, type Rule, type StyleSheet } from 'css-tree';
 import { compile } from 'tailwindcss';
-import indexCss from 'tailwindcss/index.css?inline';
-import preflightCss from 'tailwindcss/preflight.css?inline';
-import themeCss from 'tailwindcss/theme.css?inline';
-import utilitiesCss from 'tailwindcss/utilities.css?inline';
 import type { TailwindConfig } from './components/Tailwind.svelte';
 import { resolveAllCssVariables } from './tailwind/css/resolve-all-css-variables';
 import { resolveCalcExpressions } from './tailwind/css/resolve-calc-expressions';
@@ -13,6 +9,10 @@ import { getCustomProperties } from './tailwind/css/get-custom-properties';
 import { sanitizeNonInlinableRules } from './tailwind/css/sanitize-non-inlinable-rules';
 import { makeInlineStylesFor } from './tailwind/css/make-inline-styles-for';
 import { sanitizeClassName } from './tailwind/css/sanitize-class-name';
+import indexCss from './tailwind/stylesheets/index';
+import preflightCss from './tailwind/stylesheets/preflight';
+import themeCss from './tailwind/stylesheets/theme';
+import utilitiesCss from './tailwind/stylesheets/utilities';
 
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
