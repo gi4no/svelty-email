@@ -81,7 +81,7 @@ const toCamelCase = (str: string) =>
 	}, '');
 
 export const tailwindToInlineCss = (tailwind: TailwindSetup, className: string) => {
-	if (!tailwind && !className) {
+	if (!tailwind || !className) {
 		return;
 	}
 	const {

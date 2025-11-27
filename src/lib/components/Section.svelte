@@ -19,8 +19,8 @@
 
 	const tailwind = getContext<TailwindSetup>('tailwind');
 
-	const { extraClass, styleInline } =
-		tailwindToInlineCss(tailwind, className || '') || {};
+	const { extraClass, styleInline } = tailwindToInlineCss(tailwind, className || '') || {};
+
 
 	const styleDefaultTable = {
 		width: '100%',

@@ -37,8 +37,16 @@
 		border: 'none',
 		textDecoration: 'none',
 		...style,
-    ...styleInline
+		...styleInline
 	};
 </script>
 
-<img {alt} {src} {width} {height} style={styleToString(styleDefault)} {...rest} class="{className} {extraClass}" />
+<img
+	{alt}
+	{src}
+	{width}
+	{height}
+	style={styleToString(styleDefault)}
+	{...rest}
+	class="{className} {extraClass}"
+/>
