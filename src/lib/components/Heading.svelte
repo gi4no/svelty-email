@@ -11,7 +11,7 @@
 	interface Props {
 		style?: StandardLonghandProperties & StandardProperties & StandardShorthandProperties;
 		as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-		className?: string;
+		class?: string;
 		m?: string;
 		mx?: string;
 		my?: string;
@@ -24,7 +24,7 @@
 
 	let {
 		as = 'h1',
-		className,
+		class: className,
 		m,
 		mx,
 		my,
