@@ -15,7 +15,7 @@
 		[key: string]: any;
 	}
 
-	let { style = {}, className = undefined, children, ...rest }: Props = $props();
+	let { style = {}, class: className = undefined, children, ...rest }: Props = $props();
 
 	const tailwind = getContext<TailwindSetup>('tailwind');
 	const { extraClass, styleInline } = tailwindToInlineCss(tailwind, className || '') || {};
